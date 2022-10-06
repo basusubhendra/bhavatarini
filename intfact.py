@@ -26,13 +26,14 @@ if __name__ == "__main__":
         d=d[2:]
         success = False
         for x in list(zip(c,d)):
-            if satisfies(x[0],x[1]) and (x[0] == num[ctr] or x[1] == num[ctr]):
+            if satisfies(x[0],x[1]) and (x[0] == num[ctr % l] or x[1] == num[ctr % l]):
                 ctr = ctr + 1
                 success = True
         if success == True:
             accumulator = accumulator + 1
         if (ctr + 1) % 3 == 0:
             if t == 0:
+                input(bin(accumulator)[2:][::-1])
                 ltr = ltr + bin(accumulator)[2:][::-1]
                 accumulator = 0
                 idx = idx + 1
@@ -40,6 +41,7 @@ if __name__ == "__main__":
                     idx = 0
                     t = 1 - t
             elif t == 1:
+                input(bin(accumulator)[2:][::-1])
                 rtr = rtr + bin(accumulator)[2:][::-1]
                 accumulator = 0
                 idx = idx + 1
