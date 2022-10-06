@@ -2,6 +2,8 @@
 import sys
 
 def satisfies(x, y):
+    x = int(x)
+    y = int(y)
     odd_X = x % 2
     odd_Y = y % 2
     if odd_X * odd_Y == 0 and odd_X != odd_Y:
@@ -19,6 +21,8 @@ if __name__ == "__main__":
     idx = 0
     ltr = ""
     rtr = ""
+    t = 0
+    accumulator = 0
     while True:
         c=str(f.read(12))
         d=str(g.read(12))
@@ -31,17 +35,17 @@ if __name__ == "__main__":
                 success = True
         if success == True:
             accumulator = accumulator + 1
-        if (ctr + 1) % 3 == 0:
-            if t == 0:
-                input(bin(accumulator)[2:][::-1])
+        if ctr % 3 == 0:
+            if t == 0 and accumulator > 0:
+                input([ctr, accumulator])
                 ltr = ltr + bin(accumulator)[2:][::-1]
                 accumulator = 0
                 idx = idx + 1
                 if idx == 3:
                     idx = 0
                     t = 1 - t
-            elif t == 1:
-                input(bin(accumulator)[2:][::-1])
+            elif t == 1 and accumulator > 0:
+                input([ctr,accumulator])
                 rtr = rtr + bin(accumulator)[2:][::-1]
                 accumulator = 0
                 idx = idx + 1
