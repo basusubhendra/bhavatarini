@@ -1,12 +1,18 @@
 #!/usr/bin/python3
+
 import sys
+import redis
 
 def satisfies(x, y):
     x = int(x)
     y = int(y)
+    if x == 0 or y == 0:
+        return False
+    if x == y:
+        return False
     odd_X = x % 2
     odd_Y = y % 2
-    if odd_X * odd_Y == 0 and odd_X != odd_Y:
+    if odd_X*odd_Y == 0 and odd_X != odd_Y:
         return True
     else:
         return False
@@ -14,43 +20,52 @@ def satisfies(x, y):
 
 if __name__ == "__main__":
     num = str(sys.argv[1])
-    f=open("./pi.txt","r")
-    g=open("./e.txt","r")
-    ctr = 0
     l = len(num)
+    server = redis.Redis(host='localhost',port='6379',db=0)
     idx = 0
-    ltr = ""
-    rtr = ""
-    t = 0
-    accumulator = 0
     while True:
-        c=str(f.read(12))
-        d=str(g.read(12))
-        c=c[2:]
-        d=d[2:]
-        success = False
-        for x in list(zip(c,d)):
-            if satisfies(x[0],x[1]) and (x[0] == num[ctr % l] or x[1] == num[ctr % l]):
+        pos = 1
+        while True:
+            _cc = []
+            _dd = []
+            hit = 0
+            counter = 0
+            hash_map = dict([])
+            f = open("./pi.txt","r")
+            g = open("./e.txt","r")
+            ctr = 0
+            while ctr < pos:
+                c = str(f.read(12))
+                d = str(g.read(12))
+                _cc.append(c)
+                _dd.append(d)
                 ctr = ctr + 1
-                success = True
-        if success == True:
-            accumulator = accumulator + 1
-        if ctr % 3 == 0:
-            if t == 0 and accumulator > 0:
-                input([ctr, accumulator])
-                ltr = ltr + bin(accumulator)[2:][::-1]
-                accumulator = 0
-                idx = idx + 1
-                if idx == 3:
-                    idx = 0
-                    t = 1 - t
-            elif t == 1 and accumulator > 0:
-                input([ctr,accumulator])
-                rtr = rtr + bin(accumulator)[2:][::-1]
-                accumulator = 0
-                idx = idx + 1
-                if idx == 3:
-                    idx = 0
-                    t = 1 - t
-    f.close()
-    g.close()
+                if idx == 0 and ctr == 3:
+                    break
+                elif idx == 1 and ctr == 10:
+                    break
+            __dd = []
+            _dd = _dd[::-1]
+            for x in _dd:
+                __dd.append(x[::-1])
+            _dd = __dd
+            for zz in list(zip(_cc, _dd)):
+                t = 0
+                for xx in list(zip(zz[0], zz[1])):
+                    if xx[0] == num[counter % l] or xx[1] == num[counter % l]:
+                        if satisfies(xx[0], xx[1]) == True:
+                            counter = counter + 1
+                            if t < 2:
+                                continue
+                            else:
+                                hit = hit + 1
+                                print("hit")
+                    t = t + 1
+            hash_map[pos] = hit
+            input([pos, hit])
+            pos = pos + 1
+        idx = idx + 1
+        f.close()
+        g.close()
+
+
