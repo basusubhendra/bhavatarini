@@ -26,6 +26,8 @@ if __name__ == "__main__":
     counter = 0
     first = True
     prev_pos = -1
+    cnt = 0
+    _cnt = 0
     while True:
         pos = 1
         while True:
@@ -47,7 +49,7 @@ if __name__ == "__main__":
                 __dd.append(x[::-1])
             _dd = __dd
             m = 0
-            cnt = 0
+            cnt = _cnt
             for zz in list(zip(_cc, _dd)):
                 for xx in list(zip(zz[0], zz[1])):
                     if xx[0] == num[cnt % l] or xx[1] == num[cnt % l]:
@@ -62,12 +64,14 @@ if __name__ == "__main__":
                 first = False
                 counter = 0
                 prev_pos = (pos - 1) % l
+                _cnt = cnt
                 break
             y = ""
             if first == False:
                 y = str(input("?"))
             if y == 'y':
                counter = 0
+               _cnt = cnt
                break
             pos = pos + 1
             counter = 0
