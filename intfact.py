@@ -41,22 +41,23 @@ if __name__ == "__main__":
                 _cc.append(c)
                 _dd.append(d)
                 ctr = ctr + 1
-                if pos == 1 and ctr == 3:
-                    break
-                elif pos == 2 and ctr == 10:
-                    break
             __dd = []
             _dd = _dd[::-1]
             for x in _dd:
                 __dd.append(x[::-1])
             _dd = __dd
+            m = 0
+            cnt = 0
             for zz in list(zip(_cc, _dd)):
                 for xx in list(zip(zz[0], zz[1])):
-                    if xx[0] == num[(pos - 1) % l] or xx[1] == num[(pos - 1) % l]:
+                    if xx[0] == num[cnt % l] or xx[1] == num[cnt % l]:
                         if satisfies(xx[0], xx[1]) == True:
-                            counter = counter + 1
-            hash_map[(pos - 1) % l] = counter
-            print([pos, counter, pos % l])
+                            cnt  = cnt + 1
+                            if m >= 2:
+                                counter = counter + 1
+                    m = m + 1
+            hash_map[cnt % l] = counter
+            print([pos, counter, cnt % l, num[cnt % l]])
             if first == True and counter in zeros:
                 first = False
                 counter = 0
