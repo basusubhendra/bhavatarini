@@ -24,7 +24,6 @@ if __name__ == "__main__":
     l = len(num)
     server = redis.Redis(host='localhost',port='6379',db=0)
     counter = 0
-    first = True
     prev_pos = -1
     cnt = 0
     _cnt = 0
@@ -60,17 +59,10 @@ if __name__ == "__main__":
                     m = m + 1
             hash_map[cnt % l] = counter
             print([pos, counter, cnt % l, num[cnt % l]])
-            if first == True and counter in zeros:
-                first = False
-                counter = 0
-                prev_pos = (pos - 1) % l
-                _cnt = cnt
-                break
-            y = ""
-            if first == False:
-                y = str(input("?"))
+            y = str(input("?")) 
             if y == 'y':
                counter = 0
+               prev_pos = cnt % l
                _cnt = cnt
                break
             pos = pos + 1
