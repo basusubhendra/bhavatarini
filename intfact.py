@@ -58,7 +58,7 @@ if __name__ == "__main__":
                                 counter = counter + 1
                     m = m + 1
             hash_map[cnt % l] = counter
-            print([pos, counter, cnt % l, num[cnt % l]])
+            print([counter, cnt % l, num[cnt % l]])
             y = str(input("?")) 
             if y == 'y':
                counter = 0
