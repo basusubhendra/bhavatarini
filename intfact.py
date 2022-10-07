@@ -2,6 +2,7 @@
 
 import sys
 import redis
+from zeros import *
 
 def satisfies(x, y):
     x = int(x)
@@ -23,6 +24,8 @@ if __name__ == "__main__":
     l = len(num)
     server = redis.Redis(host='localhost',port='6379',db=0)
     counter = 0
+    first = True
+    prev_pos = -1
     while True:
         pos = 1
         while True:
@@ -53,8 +56,15 @@ if __name__ == "__main__":
                         if satisfies(xx[0], xx[1]) == True:
                             counter = counter + 1
             hash_map[(pos - 1) % l] = counter
-            print([pos, counter, (pos - 1) % l])
-            y = str(input("?"))
+            print([pos, counter, pos % l])
+            if first == True and counter in zeros:
+                first = False
+                counter = 0
+                prev_pos = (pos - 1) % l
+                break
+            y = ""
+            if first == False:
+                y = str(input("?"))
             if y == 'y':
                counter = 0
                break
