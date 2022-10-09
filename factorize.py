@@ -46,6 +46,7 @@ idx1=0
 idx2=0
 _z_=int(sys.argv[2])
 z = int(zeros[_z_-1])
+print(z)
 pp=str(f.read(z*x*y))
 ee=str(g.read(z*x*y))[::-1]
 ctr = 0
