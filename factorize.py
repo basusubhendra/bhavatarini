@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import sys
+from zeros import zeros
 
 def characterize(num):
     tuples = []
