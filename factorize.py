@@ -43,7 +43,8 @@ tuples = characterize(num)
 _relations_ = deriveRelation(tuples)
 idx1=0
 idx2=0
-z=int(sys.argv[2])
+_z_=int(sys.argv[2])
+z = int(zeros[_z_-1])
 pp=str(f.read(z*x*y))
 ee=str(g.read(z*x*y))[::-1]
 ctr = 0
@@ -64,7 +65,7 @@ while ctr < (x*y):
     if _relations_[idx2 % ll] == _deriveRelation_(ee[ctr], ee[ctr + 1]):
         success2 = True
         idx2 = idx2 + 1
-    if success1 == True and success2 == True
+    if success1 == True and success2 == True:
         if counter == 0 or counter == 1 or counter == 8 or counter == 9:
             zero_cnt = zero_cnt + 1
         elif counter == 2 or counter == 3 or counter == 4 or counter == 5 or counter == 6 or counter == 7:
