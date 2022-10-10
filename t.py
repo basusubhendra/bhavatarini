@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 import sys
-f=open("./e.txt","r")
-g=open("./_e.txt","w")
+f=open("./pi.txt","r")
+g=open("./_pi.txt","w")
 f.read(2)
-g.write("20")
+g.write("3")
 c=str(f.read(98))
 g.write(c)
 while True:
