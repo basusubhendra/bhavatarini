@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
 		char pp = 0, ee = 0;
 		fscanf(fp, "%c", &pp);
 		fscanf(fe, "%c", &ee);
-		cout << pp - '0' << "\t\t" << ee - '0' << endl;
+		cout << "pi = \t" << pp - '0' << "\t\te = \t" << ee - '0' << endl;
 		int left_digit = num[ctr % l] - '0';
 		int right_digit = num[(ctr + 2) % l] - '0';
 		std::vector< std::vector<int> > left_ending = left_endings[ctr % 7][left_digit];
@@ -55,6 +55,11 @@ int main(int argc, char* argv[]) {
 			} else if (common.size() == 1) {
 				results.push_back(common[0]);
 				cout << common[0] << endl;
+				if (common[0] == (pp - '0')) {
+					cout << "Pi Matches\n";
+				} else if (common[0] == (ee - '0')) {
+					cout << "E Matches\n";
+				}
 				system("a=1;read a");
 				common.clear();
 				ctr++;
