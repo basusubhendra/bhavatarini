@@ -13,8 +13,14 @@ int main(int argc, char* argv[]) {
 	unsigned long long int l = strlen(num);
 	unsigned long long int ctr = 0;
 	vector<int> results;
+	FILE* fp = fopen64("./pi.txt","r");
+	FILE* fe = fopen64("./e.txt","r");
 	while (1) {
 		cout << " ctr = " << ((((ctr > 0) && ((ctr + 1)  % 3)==0))? 3:((ctr + 1) % 3)) << endl;
+		char pp = 0, ee = 0;
+		fscanf(fp, "%c", &pp);
+		fscanf(fe, "%c", &ee);
+		cout << pp - '0' << "\t\t" << ee - '0' << endl;
 		int left_digit = num[ctr % l] - '0';
 		int right_digit = num[(ctr + 2) % l] - '0';
 		std::vector< std::vector<int> > left_ending = left_endings[ctr % 7][left_digit];
@@ -62,5 +68,7 @@ int main(int argc, char* argv[]) {
 		cout << results[i] << " , ";
 	}
 	cout << endl;
+	fclose(fp);
+	fclose(fe);
 	return 0;
 }
