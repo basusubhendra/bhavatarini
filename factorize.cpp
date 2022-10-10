@@ -14,11 +14,9 @@ int main(int argc, char* argv[]) {
 	unsigned long long int ctr = 0;
 	vector<int> results;
 	FILE* fp = fopen64("./pi.txt","r");
-	FILE* fe = fopen64("./e.txt","r");
 	while (1) {
-		char pp = 0, ee = 0;
+		char pp = 0;
 		fscanf(fp, "%c", &pp);
-		fscanf(fe, "%c", &ee);
 		int left_digit = num[ctr % l] - '0';
 		int right_digit = num[(ctr + 2) % l] - '0';
 		std::vector< std::vector<int> > left_ending = left_endings[ctr % 7][left_digit];
@@ -53,15 +51,9 @@ int main(int argc, char* argv[]) {
 				results.push_back(common[0]);
 				if (common[0] == (pp - '0')) {
 					cout << " ctr = " << ((((ctr > 0) && ((ctr + 1)  % l)==0))? l:((ctr + 1) % l)) << endl;
-					cout << "pi = \t" << pp - '0' << "\t\te = \t" << ee - '0' << endl;
+					cout << "pi = \t" << pp - '0' << endl;
 					cout << common[0] << endl;
 					cout << "Pi Matches\n";
-					system("a=1;read a");
-				} else if (common[0] == (ee - '0')) {
-					cout << " ctr = " << ((((ctr > 0) && ((ctr + 1)  % l)==0))? l:((ctr + 1) % l)) << endl;
-					cout << "pi = \t" << pp - '0' << "\t\te = \t" << ee - '0' << endl;
-					cout << common[0] << endl;
-					cout << "E Matches\n";
 					system("a=1;read a");
 				}
 				common.clear();
@@ -76,6 +68,5 @@ int main(int argc, char* argv[]) {
 	}
 	cout << endl;
 	fclose(fp);
-	fclose(fe);
 	return 0;
 }

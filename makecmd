@@ -1,1 +1,1 @@
-g++ -std=c++17 -o ./factorize factorize.cpp
+g++ -std=c++17 `getconf LFS_CFLAGS` -o ./factorize factorize.cpp
