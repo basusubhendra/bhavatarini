@@ -19,7 +19,7 @@ int main(int argc, char* argv[]) {
 		int right_digit = num[(ctr + 2) % l] - '0';
 		std::vector< std::vector<int> > left_ending = left_endings[ctr % 7][left_digit];
 		std::vector< std::vector<int> > right_ending = right_endings[ctr % 7][right_digit];
-	        if (left_ending[0][0] > 0 && right_ending[0][0] > 0) {
+		if (left_ending[0][0] > 0 && right_ending[0][0] > 0) {
 			vector<int> left;
 			for (int i = 0; i < left_ending[0][0]; ++i) {
 				left.push_back(left_ending[1][i]);
@@ -37,25 +37,26 @@ int main(int argc, char* argv[]) {
 				sz = sz2;
 			}
 			std::vector<int> common(sz);
-                        std::vector<int>::iterator it;
-                        it=std::set_intersection (left.begin(), left.end(), right.begin(), right.end(), common.begin());
-                        common.resize(it-common.begin());
+			std::vector<int>::iterator it;
+			it=std::set_intersection (left.begin(), left.end(), right.begin(), right.end(), common.begin());
+			common.resize(it-common.begin());
 			if (common.size() == 0 || common.size() > 1) {
 				left.clear(); right.clear();
 				common.clear();
-		system("a=1;read a");
+				system("a=1;read a");
 				ctr++;
 				continue;
 			} else if (common.size() == 1) {
 				results.push_back(common[0]);
 				cout << common[0] << endl;
-		system("a=1;read a");
-                                common.clear();
+				system("a=1;read a");
+				common.clear();
 				ctr++;
 				continue;
 			}
 		}	
 		++ctr;
+		system("a=1;read a");
 	}
 	for (int i = 0; i < results.size(); ++i) {
 		cout << results[i] << " , ";
