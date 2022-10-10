@@ -4,6 +4,7 @@
 #include <string>
 #include <algorithm>
 #include <vector>
+#include <iostream>
 #include "zeros.hpp"
 using namespace std;
 
@@ -31,14 +32,20 @@ int main(int argc, char* argv[]) {
 			if (common.size() == 0 || common.size() > 1) {
 				left.clear(); right.clear();
 				common.clear();
+				ctr += 2;
 				continue;
 			} else if (common.size() == 1) {
 				results.push_back(common[0]);
                                 common.clear();
+				ctr += 2;
 				continue;
 			}
 		}	
 		ctr += 2;
 	}
+	for (int i = 0; i < results.size(); ++i) {
+		cout << results[i] << " , ";
+	}
+	cout << endl;
 	return 0;
 }
