@@ -13,9 +13,10 @@ int main(int argc, char* argv[]) {
 	unsigned long long int l = strlen(num);
 	unsigned long long int ctr = 0;
 	vector<int> results;
-	while ((ctr + 2) % l != 0) {
-		int left_digit = num[ctr] - '0';
-		int right_digit = num[ctr+2] - '0';
+	while (1) {
+		cout << " ctr = " << ((((ctr > 0) && ((ctr + 1)  % 3)==0))? 3:((ctr + 1) % 3)) << endl;
+		int left_digit = num[ctr % l] - '0';
+		int right_digit = num[(ctr + 2) % l] - '0';
 		std::vector< std::vector<int> > left_ending = left_endings[ctr % 7][left_digit];
 		std::vector< std::vector<int> > right_ending = right_endings[ctr % 7][right_digit];
 	        if (left_ending[0][0] > 0 && right_ending[0][0] > 0) {
@@ -27,17 +28,29 @@ int main(int argc, char* argv[]) {
 			for (int i = 0; i < right_ending[0][0]; ++i) {
 				right.push_back(right_ending[1][i]);
 			}
-			vector<int> common;
-			std::set_intersection(left.begin(), left.end(), right.begin(), right.end(), common.begin());
+			unsigned int sz1 = left.size();
+			unsigned int sz2 = right.size();
+			int sz = -1;
+			if (sz1 > sz2) {
+				sz = sz1;
+			} else {
+				sz = sz2;
+			}
+			std::vector<int> common(sz);
+                        std::vector<int>::iterator it;
+                        it=std::set_intersection (left.begin(), left.end(), right.begin(), right.end(), common.begin());
+                        common.resize(it-common.begin());
 			if (common.size() == 0 || common.size() > 1) {
 				left.clear(); right.clear();
 				common.clear();
-				ctr += 2;
+				ctr++;
 				continue;
 			} else if (common.size() == 1) {
 				results.push_back(common[0]);
+				cout << common[0] << endl;
+				system("a=1;read a");
                                 common.clear();
-				ctr += 2;
+				ctr++;
 				continue;
 			}
 		}	
