@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
 	FILE* fp = fopen64("./pi.txt","r");
 	FILE* fe = fopen64("./e.txt","r");
 	while (1) {
-		cout << " ctr = " << ((((ctr > 0) && ((ctr + 1)  % 3)==0))? 3:((ctr + 1) % 3)) << endl;
+		cout << " ctr = " << ((((ctr > 0) && ((ctr + 1)  % l)==0))? l:((ctr + 1) % l)) << endl;
 		char pp = 0, ee = 0;
 		fscanf(fp, "%c", &pp);
 		fscanf(fe, "%c", &ee);
