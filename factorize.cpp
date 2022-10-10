@@ -51,15 +51,16 @@ int main(int argc, char* argv[]) {
 				continue;
 			} else if (common.size() == 1) {
 				results.push_back(common[0]);
-				//cout << common[0] << endl;
 				if (common[0] == (pp - '0')) {
 					cout << " ctr = " << ((((ctr > 0) && ((ctr + 1)  % l)==0))? l:((ctr + 1) % l)) << endl;
 					cout << "pi = \t" << pp - '0' << "\t\te = \t" << ee - '0' << endl;
+					cout << common[0] << endl;
 					cout << "Pi Matches\n";
 					system("a=1;read a");
 				} else if (common[0] == (ee - '0')) {
 					cout << " ctr = " << ((((ctr > 0) && ((ctr + 1)  % l)==0))? l:((ctr + 1) % l)) << endl;
 					cout << "pi = \t" << pp - '0' << "\t\te = \t" << ee - '0' << endl;
+					cout << common[0] << endl;
 					cout << "E Matches\n";
 					system("a=1;read a");
 				}
