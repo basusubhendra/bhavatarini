@@ -15,7 +15,6 @@ int main(int argc, char* argv[]) {
 	vector<int> results;
 	while (1) {
 		cout << " ctr = " << ((((ctr > 0) && ((ctr + 1)  % 3)==0))? 3:((ctr + 1) % 3)) << endl;
-		system("a=1;read a");
 		int left_digit = num[ctr % l] - '0';
 		int right_digit = num[(ctr + 2) % l] - '0';
 		std::vector< std::vector<int> > left_ending = left_endings[ctr % 7][left_digit];
@@ -44,11 +43,13 @@ int main(int argc, char* argv[]) {
 			if (common.size() == 0 || common.size() > 1) {
 				left.clear(); right.clear();
 				common.clear();
+		system("a=1;read a");
 				ctr++;
 				continue;
 			} else if (common.size() == 1) {
 				results.push_back(common[0]);
 				cout << common[0] << endl;
+		system("a=1;read a");
                                 common.clear();
 				ctr++;
 				continue;
