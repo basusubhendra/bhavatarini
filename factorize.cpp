@@ -9,13 +9,11 @@
 using namespace std;
 
 int main(int argc, char* argv[]) {
-	/*
 	FILE* testcase = fopen("testcases/latest.txt","r");
 	char* num = new char[301];
 	fscanf(testcase, "%300s\n", num);
 	num[300] = '\0';
-	*/
-	char* num = strdup(argv[1]);
+//	char* num = strdup(argv[1]);
 	unsigned long long int l = strlen(num);
 	unsigned long long int ctr = 0;
 	while (1) {
