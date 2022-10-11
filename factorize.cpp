@@ -9,18 +9,16 @@
 using namespace std;
 
 int main(int argc, char* argv[]) {
+	/*
 	FILE* testcase = fopen("testcases/latest.txt","r");
 	char* num = new char[301];
 	fscanf(testcase, "%300s\n", num);
 	num[300] = '\0';
+	*/
+	char* num = strdup(argv[1]);
 	unsigned long long int l = strlen(num);
 	unsigned long long int ctr = 0;
-	FILE* fp = fopen64("./pi.txt","r");
-	FILE* fe = fopen64("./e.txt","r");
 	while (1) {
-		char pp = 0, ee = 0;
-		fscanf(fp, "%c", &pp);
-		fscanf(fe, "%c", &ee);
 		int left_digit = num[ctr % l] - '0';
 		int right_digit = num[(ctr + 2) % l] - '0';
 		std::vector< std::vector<int> > left_ending = left_endings[ctr % 7][left_digit];
@@ -54,22 +52,14 @@ int main(int argc, char* argv[]) {
 				ctr++;
 				continue;
 			} else if (common.size() == 1) {
-				cout << common[0] << endl;
-				if (common[0] == (pp - '0')) {
-					cout << "pp\t" << endl;
-					system("a=1;read a");
-				} else if (common[0] == (ee - '0')) {
-					cout << "ee\t" << endl;
-					system("a=1;read a");
-				}
+				cout << "common=\t" << common[0] << endl;
 				common.clear();
+				system("a=1;read a");
 				ctr++;
 				continue;
 			}
 		}	
 		++ctr;
 	}
-	fclose(fp);
-	fclose(fe);
 	return 0;
 }
