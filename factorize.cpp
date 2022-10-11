@@ -15,11 +15,12 @@ int main(int argc, char* argv[]) {
 	num[300] = '\0';
 	unsigned long long int l = strlen(num);
 	unsigned long long int ctr = 0;
-	vector<int> results;
 	FILE* fp = fopen64("./pi.txt","r");
+	FILE* fe = fopen64("./e.txt","r");
 	while (1) {
-		char pp = 0;
+		char pp = 0, ee = 0;
 		fscanf(fp, "%c", &pp);
+		fscanf(fe, "%c", &ee);
 		int left_digit = num[ctr % l] - '0';
 		int right_digit = num[(ctr + 2) % l] - '0';
 		std::vector< std::vector<int> > left_ending = left_endings[ctr % 7][left_digit];
@@ -41,6 +42,8 @@ int main(int argc, char* argv[]) {
 			} else {
 				sz = sz2;
 			}
+			std::sort(left.begin(), left.end());
+			std::sort(right.begin(), right.end());
 			std::vector<int> common(sz);
 			std::vector<int>::iterator it;
 			it=std::set_intersection (left.begin(), left.end(), right.begin(), right.end(), common.begin());
@@ -51,9 +54,12 @@ int main(int argc, char* argv[]) {
 				ctr++;
 				continue;
 			} else if (common.size() == 1) {
-				results.push_back(common[0]);
+				cout << common[0] << endl;
 				if (common[0] == (pp - '0')) {
-					cout << common[0] << endl;
+					cout << "pp\t" << endl;
+					system("a=1;read a");
+				} else if (common[0] == (ee - '0')) {
+					cout << "ee\t" << endl;
 					system("a=1;read a");
 				}
 				common.clear();
@@ -63,10 +69,7 @@ int main(int argc, char* argv[]) {
 		}	
 		++ctr;
 	}
-	for (int i = 0; i < results.size(); ++i) {
-		cout << results[i] << " , ";
-	}
-	cout << endl;
 	fclose(fp);
+	fclose(fe);
 	return 0;
 }
