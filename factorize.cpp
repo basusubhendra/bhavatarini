@@ -6,6 +6,7 @@
 #include <vector>
 #include <iostream>
 #include "zeros.hpp"
+#include "zero_positions.hpp"
 using namespace std;
 
 int main(int argc, char* argv[]) {
@@ -20,7 +21,7 @@ int main(int argc, char* argv[]) {
 		int left_digit = num[ctr % l] - '0';
 		int right_digit = num[(ctr + 2) % l] - '0';
 		std::vector< std::vector<int> > left_ending = left_endings[ctr % 7][left_digit];
-		std::vector< std::vector<int> > right_ending = right_endings[ctr % 7][right_digit];
+		std::vector< std::vector<int> > right_ending = right_endings[(ctr+1) % 7][right_digit];
 		if (left_ending[0][0] > 0 && right_ending[0][0] > 0) {
 			vector<int> left;
 			for (int i = 0; i < left_ending[0][0]; ++i) {
@@ -50,9 +51,37 @@ int main(int argc, char* argv[]) {
 				ctr++;
 				continue;
 			} else if (common.size() == 1) {
-				cout << "common=\t" << common[0] << endl;
+				//cout  << "left " << endl;
+				int left_index = 0;
+				for (int i = 0;i < left.size(); ++i) { 
+					//cout << left[i] << endl;
+					if (left[i] == common[0]) {
+						break;
+					}
+					++left_index;
+				}
+				int right_index = 0;
+				//cout << endl;
+				//cout << "right " << endl;
+				for (int i = 0; i < right.size(); ++i) {
+					//cout << right[i] << endl;
+					if (right[i] == common[0]) {
+						break;
+					}
+					++right_index;
+				}
+				//cout << endl;
+				//cout << left_index << "\t\t" << right_index << endl;
+				int left_line_number = left_positions[ctr % 7][left_digit][1][left_index];
+				int right_line_number = right_positions[(ctr + 1) % 7][right_digit][1][right_index];
+				if (left_line_number == right_line_number) { 
+					cout << "line number = " << left_line_number << endl;
+					cout << "ctr = " << ctr % 8 << endl;
+					cout << num[ctr % l ] << "\t\t" << num[(ctr + 2) % l] << endl;
+					cout << "common=\t" << common[0] << endl;
+					system("a=1;read a");
+				}
 				common.clear();
-				system("a=1;read a");
 				ctr++;
 				continue;
 			}
