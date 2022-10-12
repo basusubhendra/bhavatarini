@@ -6,7 +6,6 @@
 #include <vector>
 #include <iostream>
 #include "zeros.hpp"
-#include "zero_positions.hpp"
 using namespace std;
 
 int main(int argc, char* argv[]) {
@@ -14,7 +13,7 @@ int main(int argc, char* argv[]) {
 	char* num = new char[301];
 	fscanf(testcase, "%300s\n", num);
 	num[300] = '\0';
-//	char* num = strdup(argv[1]);
+	//	char* num = strdup(argv[1]);
 	unsigned long long int l = strlen(num);
 	unsigned long long int ctr = 0;
 	while (1) {
@@ -51,34 +50,8 @@ int main(int argc, char* argv[]) {
 				ctr++;
 				continue;
 			} else if (common.size() == 1) {
-				//cout  << "left " << endl;
-				int left_index = 0;
-				for (int i = 0;i < left.size(); ++i) { 
-					//cout << left[i] << endl;
-					if (left[i] == common[0]) {
-						break;
-					}
-					++left_index;
-				}
-				int right_index = 0;
-				//cout << endl;
-				//cout << "right " << endl;
-				for (int i = 0; i < right.size(); ++i) {
-					//cout << right[i] << endl;
-					if (right[i] == common[0]) {
-						break;
-					}
-					++right_index;
-				}
-				//cout << endl;
-				//cout << left_index << "\t\t" << right_index << endl;
-				int left_line_number = left_positions[ctr % 7][left_digit][1][left_index];
-				int right_line_number = right_positions[(ctr + 1) % 7][right_digit][1][right_index];
-				cout << "left: " << left_line_number << "\t\tright :  " << right_line_number << endl;
-					cout << "ctr = " << ctr % 8 << endl;
-					cout << num[ctr % l ] << "\t\t" << num[(ctr + 2) % l] << endl;
-					cout << "common=\t" << common[0] << endl;
-					system("a=1;read a");
+				cout << "ctr = " << ctr % 8 << "\t\tctr % 300 = " << (ctr + 1) % 300 << endl;
+				system("a=1;read a");
 				common.clear();
 				ctr++;
 				continue;
