@@ -59,6 +59,8 @@ int main(int argc, char* argv[]) {
 	int* hash_table = (int*) calloc(8, sizeof(int));
 	int* triplet = (int*) calloc(3, sizeof(int));
 	int idx = 0;
+	float total_satisfiable_score = 0.0;
+	float total_non_satisfiable_score = 0.0;
 	while (1) {
 		int left_digit = num[ctr % l] - '0';
 		int right_digit = num[(ctr + 2) % l] - '0';
@@ -108,9 +110,11 @@ int main(int argc, char* argv[]) {
 						float score = 0.0;
 						bool satisfiable = is_satisfiable(triplet, score);
 						if (satisfiable) {
-							cout << "satisfiable" << "\t\t" << score << endl;
+							total_satisfiable_score += score;
+							cout << "satisfiable" << "\t\t" << total_satisfiable_score << endl;
 						} else {
-							cout << "not satisfiable" << "\t\t" << score << endl;
+							total_non_satisfiable_score += score;
+							cout << "not satisfiable" << "\t\t" << total_non_satisfiable_score << endl;
 						}
 						system("a=1; read a");
 						triplet = (int*) calloc(3, sizeof(int));
