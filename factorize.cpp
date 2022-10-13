@@ -38,7 +38,7 @@ bool is_satisfiable(int* triplet, float& score) {
 			score = 1.0;
 		}
 	} else {
-		if (triplet[0] == triplet[1] || triplet[1] == triplet[2]) {
+		if (triplet[0] == triplet[1] || triplet[1] == triplet[2] || triplet[0] == triplet[2]) {
 			score = 0.5;
 		} else {
 			score = 1.0;
