@@ -117,6 +117,7 @@ int main(int argc, char* argv[]) {
 						idx = 0;
 					}
 					success = false;
+					delete [] hash_table;
 	                                hash_table = (int*) calloc(8, sizeof(int));
 				}
 				common.clear();
