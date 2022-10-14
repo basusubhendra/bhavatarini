@@ -145,10 +145,7 @@ int main(int argc, char* argv[]) {
 							//cout << "index = " << index << endl;
 							if (index % 3 == 0) {
 								++short_counter;
-								if (short_counter % NZEROS == 0) {
-									short_counter = 1;
-								}
-								if (short_counter == 1 || is_riemann_zero(short_counter)) {
+								if (is_riemann_zero(short_counter)) {
 									cout << "Short Counter " << short_counter << "\t\t" << _decode_(long_triplet) << "\n" ;
 								        system("a=1; read a");
 								}
