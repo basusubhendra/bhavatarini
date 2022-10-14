@@ -19,6 +19,27 @@ int is_bookmarked_triplet(int* triplet) {
 	return -1;
 }
 
+int _decode_(int* triplet) {
+	if (triplet[0] == 0 && triplet[1] == 0 && triplet[2] == 0) {
+		return 0;
+	} else if (triplet[0] == 0 && triplet[1] == 0 && triplet[2] == 1) {
+		return 1;
+	} else if (triplet[0] == 0 && triplet[1] == 1 && triplet[2] == 0) {
+		return 2;
+	} else if (triplet[0] == 0 && triplet[1] == 1 && triplet[2] == 1) {
+		return 3;
+	} else if (triplet[0] == 1 && triplet[1] == 0 && triplet[2] == 0) {
+		return 4;
+	} else if (triplet[0] == 1 && triplet[1] == 0 && triplet[2] == 1) {
+		return 5;
+	} else if (triplet[0] == 1 && triplet[1] == 1 && triplet[2] == 0) {
+		return 6;
+	} else if (triplet[0] == 1 && triplet[1] == 1 && triplet[2] == 1) {
+		return 7;
+	}
+	return -1;
+}
+
 bool update_hash_table(int ctr, int* hash_table) {
 	if (hash_table[ctr] == 0) {
 		hash_table[ctr] = 1;
@@ -127,12 +148,10 @@ int main(int argc, char* argv[]) {
 								if (short_counter % NZEROS == 0) {
 									short_counter = 1;
 								}
-								cout << "Short Counter " << short_counter << "\t\t" ;
-								for (int k = 0; k < 3; ++k) {
-									cout << long_triplet[k];
+								if (is_riemann_zero(short_counter)) {
+									cout << "Short Counter " << short_counter << "\t\t" << _decode_(long_triplet) << "\n" ;
 								}
-								cout << endl;
-							        system("a=1; read a");
+								system("a=1; read a");
 								delete [] long_triplet;
 								long_triplet = (int*) calloc(3, sizeof(int));
 								index = 0;
