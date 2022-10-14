@@ -31,24 +31,31 @@ bool update_hash_table(int ctr, int* hash_table) {
 	return true;
 }
 
-bool is_riemann_zero(unsigned long long int long_counter, MYSQL* conn) {
+bool is_riemann_zero(unsigned long long int long_counter) {
+	MYSQL* conn;
+	conn = mysql_init(NULL);
+	mysql_real_connect(conn, "localhost", "root", "", "zeros", 3306, NULL, 0);
+	cout << "Here" << endl;
 	std::string base_query = "SELECT id from zeros WHERE value=";
 	base_query += boost::lexical_cast<std::string>(long_counter);
 	MYSQL_RES *res;
 	mysql_query(conn, (char*) base_query.c_str());
 	res = mysql_store_result(conn);
-	MYSQL_ROW row;
-	bool found = false;
-	while ((row = mysql_fetch_row(res))) {
-		found = true;
+	if (!res) {
+		mysql_close(conn);
+		return false;
 	}
-	return found;
+	unsigned long long int nrows = mysql_num_rows(res);
+	mysql_close(conn);
+	if (nrows > 0) {
+		return true;
+	} else {
+		return false;
+	}
+	return false;
 }
 
 int main(int argc, char* argv[]) {
-	MYSQL* conn;
-	conn = mysql_init(NULL);
-	mysql_real_connect(conn, "localhost", "root", "", "zeros", 3306, NULL, 0);
 	FILE* testcase = fopen("testcases/latest.txt","r");
 	char* num = new char[301];
 	fscanf(testcase, "%300s\n", num);
@@ -103,7 +110,7 @@ int main(int argc, char* argv[]) {
 						long_counter++;
 						int type = 0;
 						if ((type = is_bookmarked_triplet(triplet)) >= 0) {
-							bool is_zero = is_riemann_zero(long_counter, conn);
+							bool is_zero = is_riemann_zero(long_counter);
 						        cout << "Long Counter " << long_counter << "\t\t" << (int) is_zero << endl;
 							if (type == 0) {
 								cout << "Pi " << endl;
@@ -123,8 +130,8 @@ int main(int argc, char* argv[]) {
 				++ctr;
 				continue;
 			}
-			++ctr;
 		}	
+			++ctr;
 	}
 	delete result;
 	return 0;

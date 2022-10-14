@@ -1,1 +1,1 @@
-g++ -std=c++11 -o ./factorize factorize.cpp `getconf LFS_CFLAGS` `mysql_config --cflags --libs`
+g++ -g -std=c++11 -o ./factorize factorize.cpp `getconf LFS_CFLAGS` `mysql_config --cflags --libs`
