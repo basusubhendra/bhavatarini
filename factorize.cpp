@@ -121,13 +121,13 @@ int main(int argc, char* argv[]) {
 								long_triplet[index] = (int) is_zero;
 								++index;
 							}
-							cout << "index = " << index << endl;
+							//cout << "index = " << index << endl;
 							if (index % 3 == 0) {
 								++short_counter;
 								if (short_counter % NZEROS == 0) {
-									short_counter = 0;
+									short_counter = 1;
 								}
-								cout << "Short Counter " << short_counter + 1 << "\t\t" ;
+								cout << "Short Counter " << short_counter << "\t\t" ;
 								for (int k = 0; k < 3; ++k) {
 									cout << long_triplet[k];
 								}
