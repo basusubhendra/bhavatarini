@@ -116,7 +116,6 @@ int main(int argc, char* argv[]) {
 #ifdef _DEBUG
 						cout << "Triplet "<< counter + 1 << endl;
 #endif
-						cout << "Long Counter " << long_counter + 1  << endl;
 						long_counter++;
 #ifdef _DEBUG
 						counter = (counter + 1) % NZEROS;
@@ -134,7 +133,8 @@ int main(int argc, char* argv[]) {
 						}
 #endif
 						int type = 0;
-						if ((type = is_bookmarked_triplet(triplet)) > 0) {
+						if ((type = is_bookmarked_triplet(triplet)) >= 0) {
+						        cout << "Long Counter " << long_counter + 1  << endl;
 							if (type == 0) {
 								cout << "Pi " << endl;
 							} else if (type == 1) {
