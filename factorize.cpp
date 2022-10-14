@@ -7,7 +7,7 @@
 #include <iostream>
 #include "zeros.hpp"
 using namespace std;
-#define NZEROS 99
+#define NZEROS 98
 
 bool update_hash_table(int ctr, int* hash_table) {
 	if (hash_table[ctr] == 0) {
