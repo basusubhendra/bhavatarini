@@ -9,11 +9,11 @@
 using namespace std;
 #define NZEROS 98
 
-bool is_bookmarked_triplet(int* triplet) {
-	if (triplet[1] != 0) return false;
-	if (triplet[0] == 3 && triplet[2] == 1) return true;
-	if (triplet[0] == 2 && triplet[2] == 7) return true;
-	return false;
+int is_bookmarked_triplet(int* triplet) {
+	if (triplet[1] != 0) return -1;
+	if (triplet[0] == 3 && triplet[2] == 1) return 0;
+	if (triplet[0] == 2 && triplet[2] == 7) return 1;
+	return -1;
 }
 
 bool update_hash_table(int ctr, int* hash_table) {
@@ -113,9 +113,12 @@ int main(int argc, char* argv[]) {
 					triplet[idx++] = ctr % 8;
 					if (idx % 3 == 0) {
 						result->push_back(triplet);
+#ifdef _DEBUG
 						cout << "Triplet "<< counter + 1 << endl;
+#endif
 						cout << "Long Counter " << long_counter + 1  << endl;
 						long_counter++;
+#ifdef _DEBUG
 						counter = (counter + 1) % NZEROS;
  						for (int i = 0; i < 3; ++i) {
 							cout << triplet[i] << " , ";
@@ -129,7 +132,14 @@ int main(int argc, char* argv[]) {
 							total_non_satisfiable_score += score;
 							cout << "not satisfiable" << "\t\t" << total_non_satisfiable_score << endl;
 						}
-						if (is_bookmarked_triplet(triplet)) {
+#endif
+						int type = 0;
+						if ((type = is_bookmarked_triplet(triplet)) > 0) {
+							if (type == 0) {
+								cout << "Pi " << endl;
+							} else if (type == 1) {
+								cout << "E " << endl;
+							}
 							system("a=1; read a");
 						}
 						triplet = (int*) calloc(3, sizeof(int));
