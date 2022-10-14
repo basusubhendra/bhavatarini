@@ -28,33 +28,6 @@ bool update_hash_table(int ctr, int* hash_table) {
 	return true;
 }
 
-bool is_satisfiable(int* triplet, float& score) {
-	bool satisfiable = true;
-	if (triplet[0] == 0 || triplet[1] == 0 || triplet[2] == 0) {
-		satisfiable = false;
-	}
-	if (satisfiable) {
-		if ((triplet[0] < triplet[1] && triplet[1] > triplet[2]) || (triplet[0] > triplet[1] && triplet[1] < triplet[2])) {
-		} else {
-			satisfiable = false;
-		}
-	}
-	if (satisfiable) {
-		if (triplet[0] == triplet[2]) {
-			score = 0.5;
-		} else {
-			score = 1.0;
-		}
-	} else {
-		if (triplet[0] == triplet[1] || triplet[1] == triplet[2] || triplet[0] == triplet[2]) {
-			score = 0.5;
-		} else {
-			score = 1.0;
-		}
-	}
-	return satisfiable;
-}
-
 int main(int argc, char* argv[]) {
 	FILE* testcase = fopen("testcases/latest.txt","r");
 	char* num = new char[301];
@@ -67,9 +40,6 @@ int main(int argc, char* argv[]) {
 	int* hash_table = (int*) calloc(8, sizeof(int));
 	int* triplet = (int*) calloc(3, sizeof(int));
 	int idx = 0;
-	float total_satisfiable_score = 0.0;
-	float total_non_satisfiable_score = 0.0;
-	int counter = 0;
 	unsigned long long int long_counter = 0;
 	while (1) {
 		int left_digit = num[ctr % l] - '0';
@@ -102,36 +72,15 @@ int main(int argc, char* argv[]) {
 			if (common.size() == 0 || common.size() > 1) {
 				left.clear(); right.clear();
 				common.clear();
-				ctr++;
+				++ctr;
 				continue;
 			} else if (common.size() == 1) {
-#ifdef _DEBUG
-				cout << "ctr = " << ctr % 8 << endl;
-#endif
 				bool success = update_hash_table(ctr % 8, hash_table);
 				if (success) {
 					triplet[idx++] = ctr % 8;
 					if (idx % 3 == 0) {
 						result->push_back(triplet);
-#ifdef _DEBUG
-						cout << "Triplet "<< counter + 1 << endl;
-#endif
 						long_counter++;
-#ifdef _DEBUG
-						counter = (counter + 1) % NZEROS;
- 						for (int i = 0; i < 3; ++i) {
-							cout << triplet[i] << " , ";
-						}
-						float score = 0.0;
-						bool satisfiable = is_satisfiable(triplet, score);
-						if (satisfiable) {
-							total_satisfiable_score += score;
-							cout << "satisfiable" << "\t\t" << total_satisfiable_score << endl;
-						} else {
-							total_non_satisfiable_score += score;
-							cout << "not satisfiable" << "\t\t" << total_non_satisfiable_score << endl;
-						}
-#endif
 						int type = 0;
 						if ((type = is_bookmarked_triplet(triplet)) >= 0) {
 						        cout << "Long Counter " << long_counter << endl;
@@ -150,11 +99,11 @@ int main(int argc, char* argv[]) {
 	                                hash_table = (int*) calloc(8, sizeof(int));
 				}
 				common.clear();
-				ctr++;
+				++ctr;
 				continue;
 			}
+			++ctr;
 		}	
-		++ctr;
 	}
 	delete result;
 	return 0;
