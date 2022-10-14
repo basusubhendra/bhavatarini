@@ -7,6 +7,7 @@
 #include <iostream>
 #include "zeros.hpp"
 using namespace std;
+#define NZEROS 99
 
 bool update_hash_table(int ctr, int* hash_table) {
 	if (hash_table[ctr] == 0) {
@@ -61,6 +62,7 @@ int main(int argc, char* argv[]) {
 	int idx = 0;
 	float total_satisfiable_score = 0.0;
 	float total_non_satisfiable_score = 0.0;
+	int counter = 0;
 	while (1) {
 		int left_digit = num[ctr % l] - '0';
 		int right_digit = num[(ctr + 2) % l] - '0';
@@ -103,8 +105,9 @@ int main(int argc, char* argv[]) {
 					triplet[idx++] = ctr % 8;
 					if (idx % 3 == 0) {
 						result->push_back(triplet);
-						cout << "Triplet "<< endl;
-						for (int i = 0; i < 3; ++i) {
+						cout << "Triplet "<< counter + 1 << endl;
+						counter = (counter + 1) % NZEROS;
+ 						for (int i = 0; i < 3; ++i) {
 							cout << triplet[i] << " , ";
 						}
 						float score = 0.0;
