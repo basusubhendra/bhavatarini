@@ -9,6 +9,13 @@
 using namespace std;
 #define NZEROS 98
 
+bool is_bookmarked_triplet(int* triplet) {
+	if (triplet[1] != '0') return false;
+	if (triplet[0] == '3' && triplet[2] == '1') return true;
+	if (triplet[0] == '2' && triplet[2] == '7') return true;
+	return false;
+}
+
 bool update_hash_table(int ctr, int* hash_table) {
 	if (hash_table[ctr] == 0) {
 		hash_table[ctr] = 1;
@@ -119,7 +126,9 @@ int main(int argc, char* argv[]) {
 							total_non_satisfiable_score += score;
 							cout << "not satisfiable" << "\t\t" << total_non_satisfiable_score << endl;
 						}
-						system("a=1; read a");
+						if (is_bookmarked_triplet(triplet)) {
+							system("a=1; read a");
+						}
 						triplet = (int*) calloc(3, sizeof(int));
 						idx = 0;
 					}
