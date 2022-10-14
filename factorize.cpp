@@ -70,6 +70,7 @@ int main(int argc, char* argv[]) {
 	float total_satisfiable_score = 0.0;
 	float total_non_satisfiable_score = 0.0;
 	int counter = 0;
+	unsigned long long int long_counter = 0;
 	while (1) {
 		int left_digit = num[ctr % l] - '0';
 		int right_digit = num[(ctr + 2) % l] - '0';
@@ -113,6 +114,8 @@ int main(int argc, char* argv[]) {
 					if (idx % 3 == 0) {
 						result->push_back(triplet);
 						cout << "Triplet "<< counter + 1 << endl;
+						cout << "Long Counter " << long_counter + 1  << endl;
+						long_counter++;
 						counter = (counter + 1) % NZEROS;
  						for (int i = 0; i < 3; ++i) {
 							cout << triplet[i] << " , ";
