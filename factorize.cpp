@@ -5,8 +5,11 @@
 #include <algorithm>
 #include <vector>
 #include <iostream>
+#include <mysql/mysql.h>
+#include <boost/lexical_cast.hpp>
 #include "zeros.hpp"
 using namespace std;
+using namespace boost;
 #define NZEROS 98
 
 int is_bookmarked_triplet(int* triplet) {
@@ -28,7 +31,24 @@ bool update_hash_table(int ctr, int* hash_table) {
 	return true;
 }
 
+bool is_riemann_zero(unsigned long long int long_counter, MYSQL* conn) {
+	std::string base_query = "SELECT id from zeros WHERE value=";
+	base_query += boost::lexical_cast<std::string>(long_counter);
+	MYSQL_RES *res;
+	mysql_query(conn, (char*) base_query.c_str());
+	res = mysql_store_result(conn);
+	MYSQL_ROW row;
+	bool found = false;
+	while ((row = mysql_fetch_row(res))) {
+		found = true;
+	}
+	return found;
+}
+
 int main(int argc, char* argv[]) {
+	MYSQL* conn;
+	conn = mysql_init(NULL);
+	mysql_real_connect(conn, "localhost", "root", "", "zeros", 3306, NULL, 0);
 	FILE* testcase = fopen("testcases/latest.txt","r");
 	char* num = new char[301];
 	fscanf(testcase, "%300s\n", num);
@@ -83,7 +103,8 @@ int main(int argc, char* argv[]) {
 						long_counter++;
 						int type = 0;
 						if ((type = is_bookmarked_triplet(triplet)) >= 0) {
-						        cout << "Long Counter " << long_counter << endl;
+							bool is_zero = is_riemann_zero(long_counter, conn);
+						        cout << "Long Counter " << long_counter << "\t\t" << (int) is_zero << endl;
 							if (type == 0) {
 								cout << "Pi " << endl;
 							} else if (type == 1) {
