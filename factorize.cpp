@@ -10,7 +10,7 @@
 #include "zeros.hpp"
 using namespace std;
 using namespace boost;
-#define NZEROS 98
+#define NZEROS 101
 
 int is_bookmarked_triplet(int* triplet) {
 	if (triplet[1] != 0) return -1;
@@ -66,7 +66,8 @@ int main(int argc, char* argv[]) {
 	int* hash_table = (int*) calloc(8, sizeof(int));
 	int* triplet = (int*) calloc(3, sizeof(int));
 	int idx = 0;
-	unsigned long long int long_counter = 0;
+	int index = 0;
+	unsigned long long int long_counter = 0, short_counter = 0;
 	while (1) {
 		int left_digit = num[ctr % l] - '0';
 		int right_digit = num[(ctr + 2) % l] - '0';
@@ -110,11 +111,20 @@ int main(int argc, char* argv[]) {
 						int type = 0;
 						if ((type = is_bookmarked_triplet(triplet)) >= 0) {
 							bool is_zero = is_riemann_zero(long_counter);
-						        cout << "Long Counter " << long_counter << "\t\t" << (int) is_zero << endl;
 							if (type == 0) {
 								cout << "Pi " << endl;
+								++index;
 							} else if (type == 1) {
 								cout << "E " << endl;
+								++index;
+							}
+							if (index % 3 == 0) {
+								++short_counter;
+								index = 0;
+								if (short_counter % NZEROS == 0) {
+									short_counter = 0;
+								}
+								cout << "Short Counter " << short_counter + 1 << "\t\t" << (int) is_zero << endl;
 							}
 							system("a=1; read a");
 						}
