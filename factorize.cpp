@@ -68,6 +68,7 @@ int main(int argc, char* argv[]) {
 	int idx = 0;
 	int index = 0;
 	unsigned long long int long_counter = 0, short_counter = 0;
+	int* long_triplet = (int*) calloc(3, sizeof(int));
 	while (1) {
 		int left_digit = num[ctr % l] - '0';
 		int right_digit = num[(ctr + 2) % l] - '0';
@@ -112,21 +113,30 @@ int main(int argc, char* argv[]) {
 						if ((type = is_bookmarked_triplet(triplet)) >= 0) {
 							bool is_zero = is_riemann_zero(long_counter);
 							if (type == 0) {
-								cout << "Pi " << endl;
+								//cout << "Pi " << endl;
+								long_triplet[index] = (int) is_zero;
 								++index;
 							} else if (type == 1) {
-								cout << "E " << endl;
+								//cout << "E " << endl;
+								long_triplet[index] = (int) is_zero;
 								++index;
 							}
+							cout << "index = " << index << endl;
 							if (index % 3 == 0) {
 								++short_counter;
-								index = 0;
 								if (short_counter % NZEROS == 0) {
 									short_counter = 0;
 								}
-								cout << "Short Counter " << short_counter + 1 << "\t\t" << (int) is_zero << endl;
+								cout << "Short Counter " << short_counter + 1 << "\t\t" ;
+								for (int k = 0; k < 3; ++k) {
+									cout << long_triplet[k];
+								}
+								cout << endl;
+							        system("a=1; read a");
+								delete [] long_triplet;
+								long_triplet = (int*) calloc(3, sizeof(int));
+								index = 0;
 							}
-							system("a=1; read a");
 						}
 						triplet = (int*) calloc(3, sizeof(int));
 						idx = 0;
