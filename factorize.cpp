@@ -134,7 +134,7 @@ int main(int argc, char* argv[]) {
 #endif
 						int type = 0;
 						if ((type = is_bookmarked_triplet(triplet)) >= 0) {
-						        cout << "Long Counter " << long_counter + 1  << endl;
+						        cout << "Long Counter " << long_counter << endl;
 							if (type == 0) {
 								cout << "Pi " << endl;
 							} else if (type == 1) {
