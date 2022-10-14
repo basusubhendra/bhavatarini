@@ -52,7 +52,7 @@ bool update_hash_table(int ctr, int* hash_table) {
 	return true;
 }
 
-bool is_riemann_zero(unsigned long long int long_counter) {
+bool is_riemann_zero(unsigned long long int long_counter, int& order) {
 	MYSQL* conn;
 	conn = mysql_init(NULL);
 	mysql_real_connect(conn, "localhost", "root", "", "zeros", 3306, NULL, 0);
@@ -66,6 +66,7 @@ bool is_riemann_zero(unsigned long long int long_counter) {
 		return false;
 	}
 	unsigned long long int nrows = mysql_num_rows(res);
+	order = nrows;
 	mysql_close(conn);
 	if (nrows > 0) {
 		return true;
@@ -132,7 +133,8 @@ int main(int argc, char* argv[]) {
 						long_counter++;
 						int type = 0;
 						if ((type = is_bookmarked_triplet(triplet)) >= 0) {
-							bool is_zero = is_riemann_zero(long_counter);
+							int order = 0;
+							bool is_zero = is_riemann_zero(long_counter, order);
 							if (type == 0) {
 								//cout << "Pi " << endl;
 								long_triplet[index] = (int) is_zero;
@@ -145,8 +147,9 @@ int main(int argc, char* argv[]) {
 							//cout << "index = " << index << endl;
 							if (index % 3 == 0) {
 								++short_counter;
-								if (is_riemann_zero(short_counter)) {
-									cout << "Short Counter " << short_counter << "\t\t" << _decode_(long_triplet) << "\n" ;
+								int order = 0;
+								if (is_riemann_zero(short_counter, order)) {
+									cout << "Short Counter " << short_counter << "\t\t" << _decode_(long_triplet) << "\t\t" << order << "\n" ;
 								        system("a=1; read a");
 								}
 								delete [] long_triplet;
