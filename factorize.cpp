@@ -10,9 +10,9 @@ using namespace std;
 #define NZEROS 98
 
 bool is_bookmarked_triplet(int* triplet) {
-	if (triplet[1] != '0') return false;
-	if (triplet[0] == '3' && triplet[2] == '1') return true;
-	if (triplet[0] == '2' && triplet[2] == '7') return true;
+	if (triplet[1] != 0) return false;
+	if (triplet[0] == 3 && triplet[2] == 1) return true;
+	if (triplet[0] == 2 && triplet[2] == 7) return true;
 	return false;
 }
 
