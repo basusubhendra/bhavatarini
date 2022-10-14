@@ -35,7 +35,6 @@ bool is_riemann_zero(unsigned long long int long_counter) {
 	MYSQL* conn;
 	conn = mysql_init(NULL);
 	mysql_real_connect(conn, "localhost", "root", "", "zeros", 3306, NULL, 0);
-	cout << "Here" << endl;
 	std::string base_query = "SELECT id from zeros WHERE value=";
 	base_query += boost::lexical_cast<std::string>(long_counter);
 	MYSQL_RES *res;
