@@ -178,9 +178,9 @@ int main(int argc, char* argv[]) {
 							int order = 0;
 							bool is_zero = is_riemann_zero(index, order);
 							if (type == 0) {
-								cout << "Pi " << "\t\t" << (int) is_zero << "\t\t" << order << endl;
+								cout << index % 2 << "\t\t" << "Pi " << "\t\t" << (int) is_zero << "\t\t" << order << endl;
 							} else if (type == 1) {
-								cout << "E " << "\t\t" << (int) is_zero << "\t\t" << order << endl;
+								cout << index % 2 << "\t\t" <<  "E " << "\t\t" << (int) is_zero << "\t\t" << order << endl;
 							}
 						}
 						triplet = (int*) calloc(3, sizeof(int));
