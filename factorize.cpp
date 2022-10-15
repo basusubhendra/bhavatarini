@@ -13,10 +13,78 @@ using namespace boost;
 #define NZEROS 101
 
 int is_bookmarked_triplet(int* triplet) {
-	if (triplet[1] != 0) return -1;
-	if (triplet[0] == 3 && triplet[2] == 1) return 0;
-	if (triplet[0] == 2 && triplet[2] == 7) return 1;
-	return -1;
+	int first_e = -1, second_e = -1, third_e = -1;
+	for (int i = 0; i < 3;++i) {
+		if (triplet[0] == 2) {
+                     first_e = 0;
+		} else if (first_e == -1 && triplet[1] == 2) {
+		     first_e = 1;
+		} else if (first_e == -1 && triplet[2] == 2) {
+		     first_e = 2;
+		}
+	}
+	if (first_e > -1) {
+		for (int i = 0; i < 3;++i) {
+			if (triplet[0] == 0) {
+				second_e = 0;
+			} else if (second_e == -1 && triplet[1] == 0) {
+				second_e = 1;
+			} else if (second_e == -1 && triplet[2] == 0) {
+				second_e = 2;
+			}
+		}
+		if (second_e > -1) {
+			for (int i = 0; i < 3;++i) {
+				if (triplet[0] == 7) {
+					third_e = 0;
+				} else if (third_e == -1 && triplet[1] == 7) {
+					third_e = 1;
+				} else if (third_e == -1 && triplet[2] == 7) {
+					third_e = 2;
+				}
+			}
+			if (third_e > -1) return true;
+			else return false;
+		}
+	} else {
+		int first_p = -1, second_p = -1, third_p = -1;
+		for (int i = 0; i < 3;++i) {
+			if (triplet[0] == 3) {
+				first_p = 0;
+			} else if (first_p == -1 && triplet[1] == 3) {
+				first_p = 1;
+			} else if (first_p == -1 && triplet[2] == 3) {
+				first_p = 2;
+			}
+		}
+		if (first_p > -1) {
+			for (int i = 0; i < 3;++i) {
+				if (triplet[0] == 0) {
+					second_p = 0;
+				} else if (second_p == -1 && triplet[1] == 0) {
+					second_p = 1;
+				} else if (second_p == -1 && triplet[2] == 0) {
+					second_p = 2;
+				}
+			}
+			if (second_p > -1) {
+				for (int i = 0; i < 3;++i) {
+					if (triplet[0] == 1) {
+						third_p = 0;
+					} else if (third_p == -1 && triplet[1] == 1) {
+						third_p = 1;
+					} else if (third_p == -1 && triplet[2] == 1) {
+						third_p = 2;
+					}
+				}
+				if (third_p > -1) return true;
+				else return false;
+			}
+		} else {
+			return false;
+		}
+	}
+	return false;
 }
 
 bool update_hash_table(int ctr, int* hash_table) {
@@ -32,10 +100,6 @@ bool update_hash_table(int ctr, int* hash_table) {
 }
 
 bool is_riemann_zero(unsigned long long int long_counter, int& order) {
-	if (long_counter == 1) {
-		order = 1;
-		return true;
-	}
 	MYSQL* conn;
 	conn = mysql_init(NULL);
 	mysql_real_connect(conn, "localhost", "root", "", "zeros", 3306, NULL, 0);
