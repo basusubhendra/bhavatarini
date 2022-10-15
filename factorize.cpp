@@ -124,10 +124,10 @@ bool is_riemann_zero(unsigned long long int long_counter, int& order) {
 }
 
 int main(int argc, char* argv[]) {
-	FILE* testcase = fopen("testcases/latest.txt","r");
-	char* num = new char[301];
-	fscanf(testcase, "%300s\n", num);
-	num[300] = '\0';
+	FILE* testcase = fopen("testcases/rsa2048.txt","r");
+	char* num = new char[618];
+	fscanf(testcase, "%617s\n", num);
+	num[617] = '\0';
 	//	char* num = strdup(argv[1]);
 	unsigned long long int l = strlen(num);
 	unsigned long long int ctr = 0;
@@ -173,15 +173,13 @@ int main(int argc, char* argv[]) {
 					triplet[idx++] = ctr % 8;
 					if (idx % 3 == 0) {
 						index++;
-								cout << index << "\t\t" << index % 2 ;
+								cout << index;
 						int type = -1;
 						if ((type = is_bookmarked_triplet(triplet)) >= 0) {
 							if (type == 0) {
-								cout << "\t\t" << "Pi " << "\t\t" << endl;
+								cout << "\t\t" << "Pi " << endl;
 							} else if (type == 1) {
-								cout << "\t\t" <<  "E " << "\t\t" << endl;
-							} else if (type == -1) {
-								cout << "\t\t" << "-1" << "\t\t" << endl;
+								cout << "\t\t" <<  "E " << endl;
 							}
 						}
 						triplet = (int*) calloc(3, sizeof(int));
