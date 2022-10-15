@@ -43,8 +43,8 @@ int is_bookmarked_triplet(int* triplet) {
 					third_e = 2;
 				}
 			}
-			if (third_e > -1) return true;
-			else return false;
+			if (third_e > -1) return 1;
+			else return -1;
 		}
 	} else {
 		int first_p = -1, second_p = -1, third_p = -1;
@@ -77,14 +77,14 @@ int is_bookmarked_triplet(int* triplet) {
 						third_p = 2;
 					}
 				}
-				if (third_p > -1) return true;
-				else return false;
+				if (third_p > -1) return 0;
+				else return -1;
 			}
 		} else {
-			return false;
+			return -1;
 		}
 	}
-	return false;
+	return -1;
 }
 
 bool update_hash_table(int ctr, int* hash_table) {
@@ -173,23 +173,26 @@ int main(int argc, char* argv[]) {
 					triplet[idx++] = ctr % 8;
 					if (idx % 3 == 0) {
 						index++;
-						int type = 0;
+								cout << index << "\t\t" << index % 2 ;
+						int type = -1;
 						if ((type = is_bookmarked_triplet(triplet)) >= 0) {
-							int order = 0;
-							bool is_zero = is_riemann_zero(index, order);
 							if (type == 0) {
-								cout << index << "\t\t" << index % 2 << "\t\t" << "Pi " << "\t\t" << (int) is_zero << "\t\t" << order << endl;
+								cout << "\t\t" << "Pi " << "\t\t" << endl;
 							} else if (type == 1) {
-								cout << index << "\t\t" << index % 2 << "\t\t" <<  "E " << "\t\t" << (int) is_zero << "\t\t" << order << endl;
+								cout << "\t\t" <<  "E " << "\t\t" << endl;
+							} else if (type == -1) {
+								cout << "\t\t" << "-1" << "\t\t" << endl;
 							}
 						}
 						triplet = (int*) calloc(3, sizeof(int));
 						idx = 0;
 						if (index % NZEROS == 0) {
 							delete [] hash_table;
+							cout << endl;
 							exit(2);
 						}
 					}
+					cout << endl;
 					success = false;
 					delete [] hash_table;
 	                                hash_table = (int*) calloc(8, sizeof(int));
