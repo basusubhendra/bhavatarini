@@ -19,27 +19,6 @@ int is_bookmarked_triplet(int* triplet) {
 	return -1;
 }
 
-int _decode_(int* triplet) {
-	if (triplet[0] == 0 && triplet[1] == 0 && triplet[2] == 0) {
-		return 0;
-	} else if (triplet[0] == 0 && triplet[1] == 0 && triplet[2] == 1) {
-		return 1;
-	} else if (triplet[0] == 0 && triplet[1] == 1 && triplet[2] == 0) {
-		return 2;
-	} else if (triplet[0] == 0 && triplet[1] == 1 && triplet[2] == 1) {
-		return 3;
-	} else if (triplet[0] == 1 && triplet[1] == 0 && triplet[2] == 0) {
-		return 4;
-	} else if (triplet[0] == 1 && triplet[1] == 0 && triplet[2] == 1) {
-		return 5;
-	} else if (triplet[0] == 1 && triplet[1] == 1 && triplet[2] == 0) {
-		return 6;
-	} else if (triplet[0] == 1 && triplet[1] == 1 && triplet[2] == 1) {
-		return 7;
-	}
-	return -1;
-}
-
 bool update_hash_table(int ctr, int* hash_table) {
 	if (hash_table[ctr] == 0) {
 		hash_table[ctr] = 1;
@@ -53,6 +32,10 @@ bool update_hash_table(int ctr, int* hash_table) {
 }
 
 bool is_riemann_zero(unsigned long long int long_counter, int& order) {
+	if (long_counter == 1) {
+		order = 1;
+		return true;
+	}
 	MYSQL* conn;
 	conn = mysql_init(NULL);
 	mysql_real_connect(conn, "localhost", "root", "", "zeros", 3306, NULL, 0);
@@ -84,13 +67,9 @@ int main(int argc, char* argv[]) {
 	//	char* num = strdup(argv[1]);
 	unsigned long long int l = strlen(num);
 	unsigned long long int ctr = 0;
-	vector<int*>* result = new vector<int*>();
 	int* hash_table = (int*) calloc(8, sizeof(int));
 	int* triplet = (int*) calloc(3, sizeof(int));
-	int idx = 0;
-	int index = 0;
-	unsigned long long int long_counter = 0, short_counter = 0;
-	int* long_triplet = (int*) calloc(3, sizeof(int));
+	int idx = 0, index = 0;
 	while (1) {
 		int left_digit = num[ctr % l] - '0';
 		int right_digit = num[(ctr + 2) % l] - '0';
@@ -129,36 +108,23 @@ int main(int argc, char* argv[]) {
 				if (success) {
 					triplet[idx++] = ctr % 8;
 					if (idx % 3 == 0) {
-						result->push_back(triplet);
-						long_counter++;
+						index++;
 						int type = 0;
 						if ((type = is_bookmarked_triplet(triplet)) >= 0) {
 							int order = 0;
-							bool is_zero = is_riemann_zero(long_counter, order);
+							bool is_zero = is_riemann_zero(index, order);
 							if (type == 0) {
-								//cout << "Pi " << endl;
-								long_triplet[index] = (int) is_zero;
-								++index;
+								cout << "Pi " << "\t\t" << (int) is_zero << "\t\t" << order << endl;
 							} else if (type == 1) {
-								//cout << "E " << endl;
-								long_triplet[index] = (int) is_zero;
-								++index;
-							}
-							//cout << "index = " << index << endl;
-							if (index % 3 == 0) {
-								++short_counter;
-								int order = 0;
-								if (is_riemann_zero(short_counter, order)) {
-									cout << "Short Counter " << short_counter << "\t\t" << _decode_(long_triplet) << "\t\t" << order << "\n" ;
-								        system("a=1; read a");
-								}
-								delete [] long_triplet;
-								long_triplet = (int*) calloc(3, sizeof(int));
-								index = 0;
+								cout << "E " << "\t\t" << (int) is_zero << "\t\t" << order << endl;
 							}
 						}
 						triplet = (int*) calloc(3, sizeof(int));
 						idx = 0;
+						if (index % NZEROS == 0) {
+							delete [] hash_table;
+							exit(2);
+						}
 					}
 					success = false;
 					delete [] hash_table;
@@ -171,6 +137,5 @@ int main(int argc, char* argv[]) {
 		}	
 			++ctr;
 	}
-	delete result;
 	return 0;
 }
