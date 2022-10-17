@@ -19,6 +19,8 @@ def characterize(num):
              triplet.append(nn)
          triplet = "".join(triplet)
          triplets.append(triplet)
+         if ((ctr + 3) % l == 0):
+             break
          ctr = ctr + (3 - (zero_counter % 3))
     return triplets
         
