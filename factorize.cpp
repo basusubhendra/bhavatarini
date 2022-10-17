@@ -125,9 +125,11 @@ bool is_riemann_zero(unsigned long long int long_counter, int& order) {
 
 int main(int argc, char* argv[]) {
 	FILE* testcase = fopen("testcases/latest.txt","r");
+	FILE* outfile = fopen("./output.txt", "w");
 	char* num = new char[301];
 	fscanf(testcase, "%300s\n", num);
 	num[300] = '\0';
+	fclose(testcase);
 	//	char* num = strdup(argv[1]);
 	unsigned long long int l = strlen(num);
 	unsigned long long int ctr = 0;
@@ -173,13 +175,12 @@ int main(int argc, char* argv[]) {
 					triplet[idx++] = ctr % 8;
 					if (idx % 3 == 0) {
 						index++;
-								cout << index;
 						int type = -1;
 						if ((type = is_bookmarked_triplet(triplet)) >= 0) {
 							if (type == 0) {
-								cout << "\t\t" << "Pi " << endl;
+								fprintf(outfile, "%d,",index);
 							} else if (type == 1) {
-								cout << "\t\t" <<  "E " << endl;
+								fprintf(outfile, "%d,",index);
 							}
 						}
 						triplet = (int*) calloc(3, sizeof(int));
@@ -190,7 +191,6 @@ int main(int argc, char* argv[]) {
 							exit(2);
 						}
 					}
-					cout << endl;
 					success = false;
 					delete [] hash_table;
 	                                hash_table = (int*) calloc(8, sizeof(int));
@@ -203,4 +203,6 @@ int main(int argc, char* argv[]) {
 			++ctr;
 	}
 	return 0;
+	fprintf(outfile,"\n");
+	fclose(outfile);
 }
