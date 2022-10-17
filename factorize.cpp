@@ -124,13 +124,13 @@ bool is_riemann_zero(unsigned long long int long_counter, int& order) {
 }
 
 int main(int argc, char* argv[]) {
-	FILE* testcase = fopen("testcases/latest.txt","r");
+	//FILE* testcase = fopen("testcases/latest.txt","r");
 	FILE* outfile = fopen("./output.txt", "w");
-	char* num = new char[301];
-	fscanf(testcase, "%300s\n", num);
-	num[300] = '\0';
-	fclose(testcase);
-	//	char* num = strdup(argv[1]);
+	//char* num = new char[301];
+	//fscanf(testcase, "%300s\n", num);
+	//num[300] = '\0';
+	//fclose(testcase);
+	char* num = strdup(argv[1]);
 	unsigned long long int l = strlen(num);
 	unsigned long long int ctr = 0;
 	int* hash_table = (int*) calloc(8, sizeof(int));
@@ -205,4 +205,5 @@ int main(int argc, char* argv[]) {
 	return 0;
 	fprintf(outfile,"\n");
 	fclose(outfile);
+	free(num);
 }
