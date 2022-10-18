@@ -4,7 +4,7 @@ from gmpy2 import *
 from mpmath import *
 from pi import *
 from e import *
-from manindra import num
+#from manindra import num
 
 def characterize(num):
     ctr = 0
@@ -68,7 +68,8 @@ def getBinaryMatch(triplet, _zip, _zie):
             number_of_matches = number_of_matches + 1
         ctr = ctr + 3
         counter = counter + 1
-    return bin(counter)[2:]
+    input(counter)
+    return counter
 
 def is_divisible_by(num, x):
     if gmpy2.mpz(str(x)) <= 1:
@@ -89,8 +90,8 @@ def quotient(num, x):
     return str(qz)
 
 if __name__ == "__main__":
-    #num = str(sys.argv[1])
-    #print(num)
+    num = str(sys.argv[1])
+    print(num)
     triplets = characterize(num)
     ll = len(triplets)
     #print(triplets)
@@ -103,14 +104,14 @@ if __name__ == "__main__":
     while True:
         zero_index_pi, position_pi = getNextPosition(triplets, triplet_counter % ll, pi, position_pi)
         zero_index_e, position_e  = getNextPosition(triplets, triplet_counter % ll, e, position_e)
-        binary_snippet = getBinaryMatch(triplets[triplet_counter % ll], zero_index_pi, zero_index_e)
-        higher_factor = higher_factor + binary_snippet[::-1]
+        snippet = getBinaryMatch(triplets[triplet_counter % ll], zero_index_pi, zero_index_e)
+        higher_factor = higher_factor + str(snippet)[::-1]
         triplet_counter = (triplet_counter + 1) % ll
     #Reversing the higher factor binary string
-        decimal_version_of_higher_factor = int(higher_factor[::-1], 2)
-        if gmpy2.mpz(decimal_version_of_higher_factor) >= gmpy2.mpz(num):
+        higher_factor = higher_factor[::-1]
+        if gmpy2.mpz(higher_factor) >= gmpy2.mpz(num):
             print(num + "\tis not a semi-prime (a product of exactly two primes.)")
             break
-        elif is_divisible_by(num, decimal_version_of_higher_factor):
-            print(num + "\t=\t" + str(decimal_version_of_higher_factor) + "\tX\t" + str(quotient(num, decimal_version_of_higher_factor)) + "\n")
+        elif is_divisible_by(num, higher_factor):
+            print(num + "\t=\t" + str(higher_factor) + "\tX\t" + str(quotient(num, higher_factor)) + "\n")
             break
