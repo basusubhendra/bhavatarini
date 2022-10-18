@@ -34,7 +34,13 @@ def getNextPosition(triplets, triplet_counter, pp, position):
 
 def _characterize_(zs):
     zero_count = zs.count("0")
-    return zero_count, set(sorted(list(zs)))
+    return zero_count + 1, set(sorted(list(zs)))
+
+def covers(set_a, subset):
+    for x in subset:
+        if not x in set_a:
+            return False
+    return True
 
 def getBinaryMatch(triplet, _zip, _zie):
     mp.prec=256
@@ -54,18 +60,23 @@ def getBinaryMatch(triplet, _zip, _zie):
     while number_of_matches < max_number_of_matches:
         zero_snippet1 = zz1[ctr:(ctr + 3)]
         zero_snippet2 = zz2[ctr:(ctr + 3)]
+        input([zero_snippet1, zero_snippet2])
         m, set1 = _characterize_(zero_snippet1)
         m, set2 = _characterize_(zero_snippet2)
-        if sorted(list(set1.union(set2)))== sorted(list(set_of_numbers)):
+        union_set = sorted(list(set1.union(set2)))
+        if covers(union_set, set_of_numbers):
             number_of_matches = number_of_matches + 1
         ctr = ctr + 3
         counter = counter + 1
+    input(counter)
     return bin(counter)[2:]
 
 def is_divisible_by(num, x):
+    if gmpy2.mpz(str(x)) <= 1:
+        return False
     nz = gmpy2.mpz(num)
     xz = gmpy2.mpz(str(x))
-    remainder = str(gmpy2.f_mod(num, xz))
+    remainder = str(gmpy2.f_mod(nz, xz))
     if remainder == "0":
         return True
     else:
@@ -90,17 +101,19 @@ if __name__ == "__main__":
     zero_index_e = 0
     higher_factor = ""
     triplet_counter = 0
-    while triplet_counter < ll:
-        zero_index_pi, position_pi = getNextPosition(triplets, triplet_counter, pi, position_pi)
-        zero_index_e, position_e  = getNextPosition(triplets, triplet_counter, e, position_e)
+    while True:
+        zero_index_pi, position_pi = getNextPosition(triplets, triplet_counter % ll, pi, position_pi)
+        zero_index_e, position_e  = getNextPosition(triplets, triplet_counter % ll, e, position_e)
         input([zero_index_pi, zero_index_e])
-        sys.exit(2)
-        triplet_counter = triplet_counter + 1
-        binary_snippet = getBinaryMatch(triplets[triplet_counter], zero_index_pi, zero_index_e)
-        higher_factor = higher_factor + binary_snippet
+        binary_snippet = getBinaryMatch(triplets[triplet_counter % ll], zero_index_pi, zero_index_e)
+        higher_factor = higher_factor + binary_snippet[::-1]
+        triplet_counter = (triplet_counter + 1) % ll
     #Reversing the higher factor binary string
-    decimal_version_of_higher_factor = int(higher_factor[::-1], 2)
-    if is_divisible_by(num, decimal_version_of_higher_factor):
-        print(num + "\t=\t" + decimal_version_of_higher_factor + "\tX\t" + quotient(num, decimal_version_of_higher_factor) + "\n")
-    else:
-        print(num + "\tis not a semi-prime (a product of exactly two primes.)")
+        input(higher_factor)
+        decimal_version_of_higher_factor = int(higher_factor[::-1], 2)
+        if gmpy2.mpz(decimal_version_of_higher_factor) >= gmpy2.mpz(num):
+            print(num + "\tis not a semi-prime (a product of exactly two primes.)")
+            break
+        elif is_divisible_by(num, decimal_version_of_higher_factor):
+            print(num + "\t=\t" + str(decimal_version_of_higher_factor) + "\tX\t" + str(quotient(num, decimal_version_of_higher_factor)) + "\n")
+            break
