@@ -27,20 +27,3 @@ for x in list(zip(pp, n, ee)):
         pass
     position = position + 1
 ee = ee[::-1]
-snippet1 = []
-snippet2 =[]
-snippet = []
-position = 0
-_snippet = snippet1
-for x in list(zip(pp, n, ee)):
-    if position + 1 in posits:
-        _snippet.append("".join(x))
-    elif -(position + 1) in posits:
-        _snippet.append(str("-") + str("".join(x)))
-    else:
-        pass
-    position = position + 1
-    if position % (len(num)*4) == 0:
-         _snippet = snippet2
-         snippet.append(snippet1)
-snippet.append(snippet2)
