@@ -4,6 +4,7 @@ from gmpy2 import *
 from mpmath import *
 from pi import *
 from e import *
+from manindra import num
 
 def characterize(num):
     ctr = 0
@@ -88,7 +89,7 @@ def quotient(num, x):
     return str(qz)
 
 if __name__ == "__main__":
-    num = str(sys.argv[1])
+    #num = str(sys.argv[1])
     #print(num)
     triplets = characterize(num)
     ll = len(triplets)
