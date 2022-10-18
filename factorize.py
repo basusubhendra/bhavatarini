@@ -89,9 +89,12 @@ if __name__ == "__main__":
     zero_index_pi = 0
     zero_index_e = 0
     higher_factor = ""
+    triplet_counter = 0
     while triplet_counter < ll:
         zero_index_pi, position_pi = getNextPosition(triplets, triplet_counter, pi, position_pi)
         zero_index_e, position_e  = getNextPosition(triplets, triplet_counter, e, position_e)
+        input([zero_index_pi, zero_index_e])
+        sys.exit(2)
         triplet_counter = triplet_counter + 1
         binary_snippet = getBinaryMatch(triplets[triplet_counter], zero_index_pi, zero_index_e)
         higher_factor = higher_factor + binary_snippet
