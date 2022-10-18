@@ -15,14 +15,21 @@ def characterize(num):
          zero_counter = 0
          for x in range(0, 3):
              nn = num[(ctr + x) % l]
-             if nn == '0':
-                 zero_counter = zero_counter + 1
              triplet.append(nn)
          triplet = "".join(triplet)
          triplets.append(triplet)
          if ((ctr + 3) % l == 0):
              break
-         ctr = ctr + (3 - (zero_counter % 3))
+         if triplet[0] == '0' and triplet[2] == '0' and triplet[1] != '0':
+             ctr = ctr + 1
+         elif triplet[1] == '0':
+             ctr = ctr + 2
+         elif triplet[1] == triplet[2] or triplet[0] == triplet[1]:
+             ctr = ctr + 2
+         elif triplet[1] == triplet[2] and triplet[0] == triplet[1]:
+             ctr = ctr + 1
+         else:
+             ctr = ctr + 3
     return triplets
         
 def getNextPosition(triplets, triplet_counter, pp, position):
@@ -34,8 +41,18 @@ def getNextPosition(triplets, triplet_counter, pp, position):
     return zero_index, position
 
 def _characterize_(zs):
-    zero_count = zs.count("0")
-    return zero_count + 1, set(sorted(list(zs)))
+         m = 1
+         if triplet[0] == '0' and triplet[2] == '0' and triplet[1] != '0':
+             m = m + 2
+         elif triplet[1] == '0':
+             m = m + 1
+         elif triplet[1] == triplet[2] or triplet[0] == triplet[1]:
+             m = m + 1
+         elif triplet[1] == triplet[2] and triplet[0] == triplet[1]:
+             m = m + 2
+         else:
+             pass
+         return m, set(sorted(list(zs)))
 
 def covers(set_a, subset):
     for x in subset:
@@ -93,6 +110,7 @@ if __name__ == "__main__":
     num = str(sys.argv[1])
     print(num)
     triplets = characterize(num)
+    print(triplets)
     ll = len(triplets)
     #print(triplets)
     position_pi = -1
