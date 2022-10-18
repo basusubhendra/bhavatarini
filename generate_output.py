@@ -1,7 +1,13 @@
 #!/usr/bin/python3
 import sys
-
-num = str(sys.argv[1])
+from pi import pi
+from e import e
+from rsa2048 import num
+#num = str(sys.argv[1])
+n=num*8
+ll = len(n)
+pp = pi[:ll]
+ee = e[:ll]
 l = len(num)
 position = 0
 posits = []
@@ -20,7 +26,7 @@ for x in list(zip(pp, n, ee)):
     else:
         pass
     position = position + 1
-
+ee = ee[::-1]
 snippet1 = []
 snippet2 =[]
 snippet = []
