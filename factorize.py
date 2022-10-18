@@ -60,7 +60,6 @@ def getBinaryMatch(triplet, _zip, _zie):
     while number_of_matches < max_number_of_matches:
         zero_snippet1 = zz1[ctr:(ctr + 3)]
         zero_snippet2 = zz2[ctr:(ctr + 3)]
-        input([zero_snippet1, zero_snippet2])
         m, set1 = _characterize_(zero_snippet1)
         m, set2 = _characterize_(zero_snippet2)
         union_set = sorted(list(set1.union(set2)))
@@ -68,7 +67,6 @@ def getBinaryMatch(triplet, _zip, _zie):
             number_of_matches = number_of_matches + 1
         ctr = ctr + 3
         counter = counter + 1
-    input(counter)
     return bin(counter)[2:]
 
 def is_divisible_by(num, x):
@@ -104,12 +102,10 @@ if __name__ == "__main__":
     while True:
         zero_index_pi, position_pi = getNextPosition(triplets, triplet_counter % ll, pi, position_pi)
         zero_index_e, position_e  = getNextPosition(triplets, triplet_counter % ll, e, position_e)
-        input([zero_index_pi, zero_index_e])
         binary_snippet = getBinaryMatch(triplets[triplet_counter % ll], zero_index_pi, zero_index_e)
         higher_factor = higher_factor + binary_snippet[::-1]
         triplet_counter = (triplet_counter + 1) % ll
     #Reversing the higher factor binary string
-        input(higher_factor)
         decimal_version_of_higher_factor = int(higher_factor[::-1], 2)
         if gmpy2.mpz(decimal_version_of_higher_factor) >= gmpy2.mpz(num):
             print(num + "\tis not a semi-prime (a product of exactly two primes.)")
