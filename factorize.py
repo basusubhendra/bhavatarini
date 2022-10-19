@@ -29,5 +29,9 @@ if __name__ == "__main__":
     solution_vector = solution_vector[::-1]
     lx = len(solution_vector)
     posits = synthesize(solution_vector) 
-    factor1, factor2 = analyze(posits, solution_vector)
+    print(solution_vector)
+    print(posits)
+    print(pi[:len(solution_vector)])
+    print(e[:len(solution_vector)][::-1])
+#    factor1, factor2 = analyze(posits, solution_vector)
     
