@@ -18,27 +18,11 @@ def _partition_(n):
     return partitions
 
 def coverage(set1, set2):
-    set1 = list(set1)
-    set2 = list(set2)
-    l = len(set1)
-    d = dict([])
-    for x in range(0, l):
-        d[x] = 0
-    ctr = 0
-    ctr2 = 0
+    set_of_numbers = set(sorted(set2))
     nhits = 0
-    while ctr < len(set2):
-        ss = set2[ctr]
-        ctr2 = 0
-        while ctr2 < len(set1):
-            if int(ss) < int(set1[ctr2]):
-                ctr2 = ctr2 + 1
-            elif int(ss) == int(set1[ctr2]) and d[int(ss)] == 0:
-                d[int(ss)] == 1
-                ctr = ctr + 1
-                nhits = nhits + 1
-            ctr2 = ctr2 + 1
-        ctr = ctr + 1
+    for x in set_of_numbers:
+        if x in set1:
+           nhits = nhits + set1.count(x)
     return nhits
     
 if __name__ == "__main__":
@@ -71,19 +55,22 @@ if __name__ == "__main__":
             ctr = ctr + 1
         r_partition = n_partition[::-1]
         counter = 0
+        prev_idx = 0
         for partition in partitions:
-            set_partition = set(sorted(list(partition)))
-            set1 = []
-            set2 = []
+            set1 = "" 
+            set2 = ""
+            lp = len(partition)
             idx = 0
-            while idx < len(partition):
-                set1.append(n_partition[idx])
-                set2.append(r_partition[idx])
+            while (idx+prev_idx) < prev_idx + lp:
+                set1 = set1 + n_partition[idx + prev_idx]
+                set2 = set2 + r_partition[idx + prev_idx]
                 idx = idx + 1
-            n_hits1 = coverage(set1, set_partition)
-            n_hits2 = coverage(set2, set_partition)
-            if n_hits1 == n_hits2:
+            prev_idx = prev_idx + idx
+            n_hits1 = coverage(set1, partition)
+            n_hits2 = coverage(set2, partition)
+            if n_hits1 == n_hits2 and n_hits1 > 0:
                 result_set.append(counter + 1)
             counter = counter + 1
         print(iter1 + 1, result_set)
+        _ctr= _ctr + 2
         iter1 = iter1 + 1
