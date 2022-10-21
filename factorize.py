@@ -21,8 +21,12 @@ def coverage(set1, set2):
     set_of_numbers = set(sorted(set2))
     nhits = 0
     for x in set_of_numbers:
-        if x in set1:
-           nhits = nhits + set1.count(x)
+        m = set2.count(x)
+        idx = -1
+        while m > 0 and x in set1[idx + 1:]:
+            idx = set1.index(x, idx + 1)
+            nhits = nhits + 1
+            m = m - 1
     return nhits
     
 if __name__ == "__main__":
