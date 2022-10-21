@@ -1,48 +1,29 @@
 #!/usr/bin/python3
-
 import sys
-from mpmath import *
+MAGIC=18
+partition_sizes = [ 10, 8 ]
+
+def _partition_(n):
+    ctr = 0
+    ll = len(n)
+    partitions = []
+    t = 0
+    while ctr == 0 or ctr % ll != 0:
+        partition = "" 
+        for x in range(0, partition_sizes[t]):
+            partition = partition + n[ctr]
+            ctr = ctr + 1
+        t = 1 - t
+        partitions.append(partition)
+    return partitions
 
 if __name__ == "__main__":
-    num = str(sys.argv[1]).lstrip().rstrip()
+    num = str(sys.argv[1])
     num = num.lstrip().rstrip()
-    f=open("pi.txt","r")
-    g=open("e.txt","r")
-    mp.prec=128
-    mp.dps=128
-    k=open("./pi_output.txt","w")
-    h=open("./output.txt","w")
-    m=open("./e_output.txt","w")
-    ee = ""
+    n_iter = int(sys.argv[2])
     l = len(num)
-    ctr = 0
-    while True:
-        a=int(f.read(1))
-        c=int(num[ctr])
-        b=int(g.read(1))
-        ee = ee + str(b)
-        index = a*10 + b
-        if index == 0:
-            index = 100
-        zero = str(zetazero(index).imag)
-        idx = zero.index(".")
-        zero = zero[(idx-2):]
-        zero = zero.replace(".","")
-        zero = zero[:11]
-        digit = zero[c-1]
-        h.write(str(digit) + ",")
-        k.write(str(a) + ",")
-        ctr = ctr + 1
-        if ctr == l:
-            break
-    ee = ee[::-1]
-    for x in ee:
-        m.write(str(x) + ",")
-    k.write("\n")
-    h.write("\n")
-    m.write("\n")
-    k.close()
-    h.close()
-    m.close()
-    f.close()
-    g.close()
+    n = num*MAGIC
+    ll = len(n)
+    partitions = _partition_(n)
+    print(partitions)
+    sys.exit(2)
