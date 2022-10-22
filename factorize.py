@@ -1,7 +1,18 @@
 #!/usr/bin/python3
 import sys
+from mpmath import *
+from pi import pi
+from e import e
 MAGIC=18
 partition_sizes = [ 10, 8 ]
+
+def get_zero_digit(iter1, digit):
+    mp.prec=2048
+    mp.dps=2048
+    zero = str(zetazero(iter1).imag)
+    idx = zero.index(".")
+    zero = zero[idx - 2:]
+    return zero[digit]
 
 def _partition_(n):
     ctr = 0
@@ -45,19 +56,8 @@ if __name__ == "__main__":
     while iter1 < n_iter:
         result_set = []
         ctr = _ctr + 2
-        n_partition = ""
-        run_length = 0
-        while run_length < total_l:
-            ss = str(ctr)
-            n_partition = n_partition + ss
-            run_length = run_length + len(ss)
-            if run_length > total_l:
-                n_partition = n_partition[:total_l]
-                break
-            elif run_length == total_l:
-                break
-            ctr = ctr + 1
-        r_partition = n_partition[::-1]
+        n_partition = pi[ctr: ctr + total_l]
+        r_partition = e[ctr:ctr + total_l][::-1]
         counter = 0
         prev_idx = 0
         for partition in partitions:
@@ -73,7 +73,7 @@ if __name__ == "__main__":
             n_hits1 = coverage(set1, partition)
             n_hits2 = coverage(set2, partition)
             if n_hits1 == n_hits2 and n_hits1 > 0:
-                result_set.append(counter + 1)
+                result_set.append(get_zero_digit(iter1 + 1, counter))
             counter = counter + 1
         print(iter1 + 1, result_set)
         _ctr= _ctr + 2
